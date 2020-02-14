@@ -24,6 +24,5 @@ public class PlayerPhysics : MonoBehaviour
     {
         Physics.gravity = new Vector3(Physics.gravity.x, Physics.gravity.y * -1.0f, Physics.gravity.z);
         Debug.Log("Switching Gravity");
-        //throw new System.NotImplementedException("Gravity Flipping not yet implemented");
     }
 }
