@@ -8,6 +8,19 @@ public class PlayerCollision : MonoBehaviour
     {
         string colTag = col.collider.tag;
         Debug.Log("HEWWO, I AM A " + colTag);
-        
+
+        if(colTag == "DeathPlane")
+        {
+            Debug.Log("Lol u ded");
+        }
+
+        if(colTag == "Obstacle")
+        {
+            Debug.Log("Lol u ded");
+        }
+    }
+
+    private void OnCollisionExit(Collision col)
+    {
     }
 }

@@ -7,7 +7,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     PlayerPhysics phys;
     [SerializeField]
+    PlayerCollision col;
+    [SerializeField]
     Transform playerTransform;
+    [SerializeField]
+    [Range(0.1f,5.0f)]
+    float moveSpeed = 1.0f;
     bool pressedSpace = false, canFlip = true;
 
     void Awake()
@@ -30,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
         {
             canFlip = false; pressedSpace = true;
         }
-        canFlip = Input.GetKeyUp(KeyCode.Space) || canFlip; //Set canFlip to true if space was released or it was already true
+        canFlip = (Input.GetKeyUp(KeyCode.Space) || canFlip); //Set canFlip to true if space was released or it was already true. Player must also be on ground.
     }
 
     void FixedUpdate()
@@ -40,5 +45,7 @@ public class PlayerMovement : MonoBehaviour
             pressedSpace = false;
             phys.FlipGravity();
         }
+
+        playerTransform.Translate(0, 0, moveSpeed);
     }
 }
