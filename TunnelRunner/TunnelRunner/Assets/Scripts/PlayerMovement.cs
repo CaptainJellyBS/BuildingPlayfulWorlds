@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
             
             if(Physics.Raycast(ray, out RaycastHit hit))
             {
-                FlyTo(hit.collider.gameObject);
+                FlyTo(hit);
             }
         }
 
@@ -93,12 +93,16 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void FlyTo(GameObject target)
+    void FlyTo(RaycastHit hit)
     {
+        PlatformRotator target = hit.collider.gameObject.GetComponent<PlatformRotator>();
+
+        if(target == null) { return; }
         if(target == phys.gravObj) { return; } //Do not allow jumping to the same object
+        
         phys.grav = false;
         //phys.gravObj = target.GetComponent<PlatformRotator>();
-        rb.velocity = (target.transform.position - transform.position).normalized * yeetSpeed;
+        rb.velocity = (/*target.transform.position */ hit.point - transform.position).normalized * yeetSpeed;
     }
 
 
