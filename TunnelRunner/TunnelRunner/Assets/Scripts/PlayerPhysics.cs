@@ -43,7 +43,6 @@ public class PlayerPhysics : MonoBehaviour
 
     void RecalculateRotation()
     {
-        Debug.Log("Doing THis");
         transform.rotation = Quaternion.LookRotation(transform.forward, gravObj.transform.up);
         //transform.Rotate(Vector3.forward, gravObj.myAngle);
     }
