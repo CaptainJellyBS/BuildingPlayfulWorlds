@@ -4,16 +4,23 @@ using UnityEngine;
 
 public class PlayerPhysics : MonoBehaviour
 {
+    public PlatformRotator gravObj;
+    public bool grav;
+    Rigidbody rb;
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        rb = GetComponentInParent<Rigidbody>();
+    }
     void Start()
     {
-        
+        grav = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     private void FixedUpdate()
@@ -24,12 +31,20 @@ public class PlayerPhysics : MonoBehaviour
 
     void RecalculateGravity()
     {
-        Physics.gravity = new Vector3(transform.position.x, transform.position.y, 0).normalized;
+        if (grav)
+        {
+            Physics.gravity = -gravObj.transform.up;
+        }
+        else
+        {
+            Physics.gravity = Vector3.zero;
+        }
     }
 
     void RecalculateRotation()
     {
-        Quaternion rotTest = Quaternion.LookRotation(transform.forward, new Vector3(-transform.position.x, -transform.position.y, 0));
-        transform.rotation = rotTest;
+        Debug.Log("Doing THis");
+        transform.rotation = Quaternion.LookRotation(transform.forward, gravObj.transform.up);
+        //transform.Rotate(Vector3.forward, gravObj.myAngle);
     }
 }

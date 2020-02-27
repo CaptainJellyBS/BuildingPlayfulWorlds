@@ -34,7 +34,7 @@ public class PlayerDeath : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("Death");
-        Debug.LogError("Dying has not been implemented yet");
+        //Debug.Log("Death");
+        //Debug.LogError("Dying has not been implemented yet");
     }
 }
