@@ -8,10 +8,15 @@ public class PlayerMovement : MonoBehaviour
     PlayerPhysics phys;
     Rigidbody rb;
     Camera camera;
+    public bool onGround;
 
     #region Serialized
     [SerializeField]
     float speed;
+    [SerializeField]
+    float jumpSpeed = 1.0f;
+    [SerializeField]
+    float yeetSpeed = 1.0f;
     [SerializeField]
     float sensitivityX = 15f;
     [SerializeField]
@@ -81,13 +86,19 @@ public class PlayerMovement : MonoBehaviour
                 FlyTo(hit.collider.gameObject);
             }
         }
+
+        if(Input.GetKeyUp(KeyCode.Space) && onGround)
+        {
+            rb.AddForce(transform.up * jumpSpeed, ForceMode.Impulse);
+        }
     }
 
     void FlyTo(GameObject target)
     {
+        if(target == phys.gravObj) { return; } //Do not allow jumping to the same object
         phys.grav = false;
         //phys.gravObj = target.GetComponent<PlatformRotator>();
-        rb.velocity = (target.transform.position - transform.position).normalized * speed;
+        rb.velocity = (target.transform.position - transform.position).normalized * yeetSpeed;
     }
 
 

@@ -5,12 +5,14 @@ using UnityEngine;
 public class PlayerCollision : MonoBehaviour
 {
     PlayerPhysics phys;
+    PlayerMovement move;
     Rigidbody rb;
     int uglyFix = 0;
 
     private void Awake()
     {
         phys = GetComponentInParent<PlayerPhysics>();
+        move = GetComponentInParent<PlayerMovement>();
         rb = GetComponentInParent<Rigidbody>();
     }
     // Start is called before the first frame update
@@ -31,8 +33,21 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        phys.grav = true;
-        phys.gravObj = collision.gameObject.GetComponent<PlatformRotator>();
         rb.velocity = Vector3.zero;
+
+        if(collision.collider.tag == "Floor")
+        {
+            phys.grav = true;
+            phys.gravObj = collision.gameObject.GetComponent<PlatformRotator>();
+            move.onGround = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if(collision.collider.tag == "Floor")
+        {
+            move.onGround = false;
+        }
     }
 }
