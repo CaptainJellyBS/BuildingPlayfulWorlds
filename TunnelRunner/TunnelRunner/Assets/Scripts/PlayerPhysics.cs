@@ -6,7 +6,8 @@ public class PlayerPhysics : MonoBehaviour
 {
     public PlatformRotator gravObj;
     public bool grav;
-    Rigidbody rb;
+    public Rigidbody rb;
+    public float gravMod;
     // Start is called before the first frame update
 
     private void Awake()
@@ -43,7 +44,9 @@ public class PlayerPhysics : MonoBehaviour
 
     void RecalculateRotation()
     {
-        transform.rotation = Quaternion.LookRotation(transform.forward, gravObj.transform.up);
+        //transform.rotation = Quaternion.LookRotation(transform.forward, gravObj.transform.up);
         //transform.Rotate(Vector3.forward, gravObj.myAngle);
+
+        //transform.Rotate(0,0,-transform.rotation.eulerAngles.z);
     }
 }

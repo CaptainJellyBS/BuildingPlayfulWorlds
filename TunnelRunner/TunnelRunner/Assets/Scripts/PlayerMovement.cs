@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         HandleInput();
-        //MouseRot();
+        MouseRot();
     }
 
 
@@ -66,7 +66,9 @@ public class PlayerMovement : MonoBehaviour
         Quaternion xQuaternion = Quaternion.AngleAxis(rotX, Vector3.up);
         Quaternion yQuaternion = Quaternion.AngleAxis(rotY, -Vector3.right);
         transform.localRotation = originalRotation * xQuaternion * yQuaternion;
-
+        //transform.Rotate(0, 0, -transform.rotation.eulerAngles.z);
+        //Quaternion.AngleAxis(-transform.rotation.eulerAngles.z, transform.forward;
+        //originalRotation.eulerAngles(originalRotation.x, originalRotation.y, originalRotation.z - )
         //camera.transform.localRotation = Quaternion.AngleAxis(phys.gravObj.myAngle, camera.transform.forward);
     }
 
@@ -89,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
 
         if(Input.GetKeyUp(KeyCode.Space) && onGround)
         {
-            rb.AddForce(transform.up * jumpSpeed, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
         }
     }
 
@@ -101,8 +103,17 @@ public class PlayerMovement : MonoBehaviour
         if(target == phys.gravObj) { return; } //Do not allow jumping to the same object
         
         phys.grav = false;
-        //phys.gravObj = target.GetComponent<PlatformRotator>();
-        rb.velocity = (/*target.transform.position */ hit.point - transform.position).normalized * yeetSpeed;
+        PlatformRotator oldGO = phys.gravObj;
+        phys.gravObj = target.GetComponent<PlatformRotator>();
+        //rb.velocity = (/*target.transform.position */ hit.point - transform.position).normalized * yeetSpeed;
+        Vector3 convertedHitPoint = Quaternion.AngleAxis(-phys.gravObj.myAngle + oldGO.myAngle, Vector3.forward) * hit.point;
+
+        rb.velocity = (convertedHitPoint - transform.position).normalized * yeetSpeed;
+    }
+
+    void RotateLevel()
+    {
+
     }
 
 

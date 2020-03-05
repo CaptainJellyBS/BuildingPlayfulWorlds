@@ -38,7 +38,6 @@ public class PlayerCollision : MonoBehaviour
         if(collision.collider.tag == "Floor")
         {
             phys.grav = true;
-            phys.gravObj = collision.gameObject.GetComponent<PlatformRotator>();
             move.onGround = true;
         }
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelRotator : MonoBehaviour
 {
     PlayerPhysics phys;
+    Rigidbody rb;
     private void Awake()
     {
         phys = FindObjectOfType<PlayerPhysics>();
@@ -23,7 +24,12 @@ public class LevelRotator : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Quaternion rot = Quaternion.AngleAxis(-phys.gravObj.myAngle, Vector3.forward);
-        //transform.rotation = rot;
+        Quaternion prevRot = transform.rotation;
+        Quaternion rot = Quaternion.AngleAxis(-phys.gravObj.myAngle, Vector3.forward);
+        if (prevRot != rot)
+        { 
+            transform.rotation = rot;
+            //phys.rb.velocity = rot* phys.rb.velocity;
+        }
     }
 }
