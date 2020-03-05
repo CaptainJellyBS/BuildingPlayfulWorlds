@@ -102,13 +102,15 @@ public class PlayerMovement : MonoBehaviour
         if(target == null) { return; }
         if(target == phys.gravObj) { return; } //Do not allow jumping to the same object
         
-        phys.grav = false;
+        //phys.grav = false;
         PlatformRotator oldGO = phys.gravObj;
         phys.gravObj = target.GetComponent<PlatformRotator>();
         //rb.velocity = (/*target.transform.position */ hit.point - transform.position).normalized * yeetSpeed;
         Vector3 convertedHitPoint = Quaternion.AngleAxis(-phys.gravObj.myAngle + oldGO.myAngle, Vector3.forward) * hit.point;
+        convertedHitPoint.y += 0.6f;
 
-        rb.velocity = (convertedHitPoint - transform.position).normalized * yeetSpeed;
+        //rb.velocity = (convertedHitPoint - transform.position).normalized * yeetSpeed;
+        transform.position = convertedHitPoint;
     }
 
     void RotateLevel()
