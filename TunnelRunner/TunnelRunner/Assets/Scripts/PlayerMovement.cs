@@ -66,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
         Quaternion xQuaternion = Quaternion.AngleAxis(rotX, Vector3.up);
         Quaternion yQuaternion = Quaternion.AngleAxis(rotY, -Vector3.right);
         transform.localRotation = originalRotation * xQuaternion * yQuaternion;
+
         //transform.Rotate(0, 0, -transform.rotation.eulerAngles.z);
         //Quaternion.AngleAxis(-transform.rotation.eulerAngles.z, transform.forward;
         //originalRotation.eulerAngles(originalRotation.x, originalRotation.y, originalRotation.z - )
@@ -75,7 +76,9 @@ public class PlayerMovement : MonoBehaviour
     void HandleInput()
     {
         transform.Translate(new Vector3(Input.GetAxis("Horizontal"), 0, 0) * Time.deltaTime * speed, Space.Self);
-        transform.Translate(new Vector3(0, 0, Input.GetAxis("Vertical")) * Time.deltaTime * speed, Space.Self);
+        //transform.Translate(new Vector3(0, 0, Input.GetAxis("Vertical")) * Time.deltaTime * speed, Space.Self);
+        float xsp = Input.GetAxis("Vertical") * Time.deltaTime * speed;
+        transform.Translate(new Vector3(transform.forward.x * xsp, 0, transform.forward.z * xsp), Space.World);
 
         LineRenderer lr = new LineRenderer();
 
@@ -102,15 +105,14 @@ public class PlayerMovement : MonoBehaviour
         if(target == null) { return; }
         if(target == phys.gravObj) { return; } //Do not allow jumping to the same object
         
-        //phys.grav = false;
+        phys.grav = false;
         PlatformRotator oldGO = phys.gravObj;
-        phys.gravObj = target.GetComponent<PlatformRotator>();
-        //rb.velocity = (/*target.transform.position */ hit.point - transform.position).normalized * yeetSpeed;
-        Vector3 convertedHitPoint = Quaternion.AngleAxis(-phys.gravObj.myAngle + oldGO.myAngle, Vector3.forward) * hit.point;
-        convertedHitPoint.y += 0.6f;
+        //phys.gravObj = target.GetComponent<PlatformRotator>();
+        rb.velocity = (/*target.transform.position */ hit.point - transform.position).normalized * yeetSpeed;
+
 
         //rb.velocity = (convertedHitPoint - transform.position).normalized * yeetSpeed;
-        transform.position = convertedHitPoint;
+        //transform.position = convertedHitPoint;
     }
 
     void RotateLevel()

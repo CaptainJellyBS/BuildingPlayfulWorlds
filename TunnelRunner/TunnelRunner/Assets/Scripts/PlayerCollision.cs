@@ -38,7 +38,15 @@ public class PlayerCollision : MonoBehaviour
         if(collision.collider.tag == "Floor")
         {
             phys.grav = true;
+            PlatformRotator oldGO = phys.gravObj;
+            phys.gravObj = collision.collider.gameObject.GetComponent<PlatformRotator>();
             move.onGround = true;
+
+            if(phys.gravObj == oldGO) { return; }
+
+            Vector3 convertedHitPoint = Quaternion.AngleAxis(-phys.gravObj.myAngle + oldGO.myAngle, Vector3.forward) * transform.position;
+            //convertedHitPoint.y += 0.6f;
+            transform.position = convertedHitPoint;
         }
     }
 
