@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
     Camera camera;
     public bool onGround;
+    public bool canMove = true;
 
     #region Serialized
     [SerializeField]
@@ -66,21 +67,15 @@ public class PlayerMovement : MonoBehaviour
         Quaternion xQuaternion = Quaternion.AngleAxis(rotX, Vector3.up);
         Quaternion yQuaternion = Quaternion.AngleAxis(rotY, -Vector3.right);
         transform.localRotation = originalRotation * xQuaternion * yQuaternion;
-
-        //transform.Rotate(0, 0, -transform.rotation.eulerAngles.z);
-        //Quaternion.AngleAxis(-transform.rotation.eulerAngles.z, transform.forward;
-        //originalRotation.eulerAngles(originalRotation.x, originalRotation.y, originalRotation.z - )
-        //camera.transform.localRotation = Quaternion.AngleAxis(phys.gravObj.myAngle, camera.transform.forward);
     }
 
     void HandleInput()
     {
+        if (!canMove) { return; }
         transform.Translate(new Vector3(Input.GetAxis("Horizontal"), 0, 0) * Time.deltaTime * speed, Space.Self);
-        //transform.Translate(new Vector3(0, 0, Input.GetAxis("Vertical")) * Time.deltaTime * speed, Space.Self);
         float xsp = Input.GetAxis("Vertical") * Time.deltaTime * speed;
         transform.Translate(new Vector3(transform.forward.x * xsp, 0, transform.forward.z * xsp), Space.World);
 
-        LineRenderer lr = new LineRenderer();
 
         if(Input.GetMouseButtonDown(0) && phys.grav)
         {
@@ -104,6 +99,8 @@ public class PlayerMovement : MonoBehaviour
 
         if(target == null) { return; }
         if(target == phys.gravObj) { return; } //Do not allow jumping to the same object
+
+        canMove = false;
         
         phys.grav = false;
         PlatformRotator oldGO = phys.gravObj;

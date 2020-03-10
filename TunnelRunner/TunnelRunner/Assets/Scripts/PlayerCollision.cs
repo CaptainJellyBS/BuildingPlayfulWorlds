@@ -37,6 +37,7 @@ public class PlayerCollision : MonoBehaviour
 
         if(collision.collider.tag == "Floor")
         {
+            move.canMove = true;
             phys.grav = true;
             PlatformRotator oldGO = phys.gravObj;
             phys.gravObj = collision.collider.gameObject.GetComponent<PlatformRotator>();
