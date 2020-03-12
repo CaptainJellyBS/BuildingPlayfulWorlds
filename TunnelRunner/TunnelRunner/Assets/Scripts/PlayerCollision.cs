@@ -6,6 +6,7 @@ public class PlayerCollision : MonoBehaviour
 {
     PlayerPhysics phys;
     PlayerMovement move;
+    PlayerDeath death;
     Rigidbody rb;
     int uglyFix = 0;
 
@@ -14,6 +15,7 @@ public class PlayerCollision : MonoBehaviour
         phys = GetComponentInParent<PlayerPhysics>();
         move = GetComponentInParent<PlayerMovement>();
         rb = GetComponentInParent<Rigidbody>();
+        death = GetComponentInParent<PlayerDeath>();
     }
     // Start is called before the first frame update
     void Start()
@@ -48,6 +50,11 @@ public class PlayerCollision : MonoBehaviour
             Vector3 convertedHitPoint = Quaternion.AngleAxis(-phys.gravObj.myAngle + oldGO.myAngle, Vector3.forward) * transform.position;
             //convertedHitPoint.y += 0.6f;
             transform.position = convertedHitPoint;
+        }
+
+        if(collision.collider.tag == "Death")
+        {
+            death.Die();
         }
     }
 
