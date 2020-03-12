@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyUp(KeyCode.Space) && onGround)
+        if(Input.GetKeyDown(KeyCode.Space) && onGround)
         {
             rb.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
         }
