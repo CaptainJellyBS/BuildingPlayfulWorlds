@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class ObstacleMovement : MonoBehaviour
 {
-    float obstacleSpeed;
+    protected float obstacleSpeed;
     public float zBound;
-    Rigidbody rb;
+    protected Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    public void Init(float speed, float scale, Vector3 direction)
+    public virtual void Init(float speed, float scale, Vector3 direction)
     {
         rb = GetComponent<Rigidbody>();
 
@@ -35,6 +35,9 @@ public class ObstacleMovement : MonoBehaviour
 
         //Despawn obstacles once they're behind the player
         if(transform.position.z <= -90)
-        { Destroy(gameObject); }
+        {
+            GameManager.Instance.score++;
+            Destroy(gameObject);
+        }
     }
 }

@@ -4,21 +4,26 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static GameObject Instance { get; private set; }
+
     public float lateralSpeed, verticalSpeed;
     public float jumpHeight;
     public bool onGround = true;
-    public Vector3 cameraOffset;
+    public float bulletHorOffset, bulletVerOffset;
     public float sensitivityX, sensitivityY, minimumX, maximumX, minimumY, maximumY;
     public float xRotationDeadzoneAngle, yRotationDeadzoneAngle;
     float rotX, rotY;
     Quaternion originalRotation;
     public bool canMove = false;
 
+    public GameObject bullet;
+
     // Start is called before the first frame update
     void Start()
     {
+        Instance = gameObject;
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = true;
+        Cursor.visible = false;
         originalRotation = transform.localRotation;
     }
 
@@ -51,6 +56,12 @@ public class PlayerMovement : MonoBehaviour
         if (Mathf.Abs(rotY) > yRotationDeadzoneAngle)
         {
             transform.position += Vector3.up * rotY * verticalSpeed * Time.deltaTime;
+        }
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            Instantiate(bullet, new Vector3(transform.position.x + bulletHorOffset, transform.position.y + bulletVerOffset, transform.position.z), Quaternion.identity);
+            Instantiate(bullet, new Vector3(transform.position.x - bulletHorOffset, transform.position.y + bulletVerOffset, transform.position.z), Quaternion.identity);
         }
     }
 
