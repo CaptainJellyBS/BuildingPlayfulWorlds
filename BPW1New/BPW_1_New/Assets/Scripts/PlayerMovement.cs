@@ -9,8 +9,10 @@ public class PlayerMovement : MonoBehaviour
     public bool onGround = true;
     public Vector3 cameraOffset;
     public float sensitivityX, sensitivityY, minimumX, maximumX, minimumY, maximumY;
+    public float xRotationDeadzoneAngle, yRotationDeadzoneAngle;
     float rotX, rotY;
     Quaternion originalRotation;
+    public bool canMove = false;
 
     // Start is called before the first frame update
     void Start()
@@ -27,28 +29,33 @@ public class PlayerMovement : MonoBehaviour
     }
 
     #region input and movement
-    void HandleInput()
-    {
-        MouseRot();
-
-    }
 
     //Mouse rotation code taken from: https://answers.unity.com/questions/29741/mouse-look-script.html and adapted to suit my game
-    void MouseRot()
+    void HandleInput()
     {
+        if (!canMove) { return; }
+        //Mouse Rotation
         rotX += Input.GetAxis("Mouse X") * sensitivityX;
         rotY += Input.GetAxis("Mouse Y") * sensitivityY;
         rotX = ClampAngle(rotX, minimumX, maximumX);
         rotY = ClampAngle(rotY, minimumY, maximumY);
         Quaternion xQuaternion = Quaternion.AngleAxis(rotX, transform.forward);
         Quaternion yQuaternion = Quaternion.AngleAxis(rotY, -Vector3.right);
-        transform.localRotation = originalRotation * xQuaternion*yQuaternion;
-        //Camera.main.transform.localRotation = originalRotation * yQuaternion;
+        transform.localRotation = originalRotation * xQuaternion * yQuaternion;
 
-        transform.position += VectorOnPlane(transform.right, Vector3.up) * -rotX * lateralSpeed * Time.deltaTime;
-        transform.position += Vector3.up * rotY * verticalSpeed * Time.deltaTime;
+        //Calculate lateral and vertical movement from Mouse Rotation, with a deadzone
+        if (Mathf.Abs(rotX) > xRotationDeadzoneAngle)
+        {
+            transform.position += VectorOnPlane(transform.right, Vector3.up) * -rotX * lateralSpeed * Time.deltaTime;
+        }
+        if (Mathf.Abs(rotY) > yRotationDeadzoneAngle)
+        {
+            transform.position += Vector3.up * rotY * verticalSpeed * Time.deltaTime;
+        }
     }
+
     #endregion
+
     #region Collision
     void OnCollisionEnter(Collision col)
     {
@@ -73,6 +80,52 @@ public class PlayerMovement : MonoBehaviour
     Vector3 VectorOnPlane(Vector3 vector, Vector3 planeNormal)
     {
         return Vector3.ProjectOnPlane(vector, planeNormal);
+    }
+    #endregion
+
+    #region intro Coroutine
+    public void StartIntro()
+    {
+        StartCoroutine(IntroRoutine());
+    }
+
+    public IEnumerator IntroRoutine()
+    {
+        float t = 0.0f;
+        Vector3 startPos = transform.position;
+        Vector3 endPos = new Vector3(startPos.x, 15, startPos.z);
+        
+        float risingTime = 6.0f;
+        while(t<1.0f)
+        {
+            transform.position = Vector3.Lerp(startPos, endPos, t);
+            t += Time.deltaTime/risingTime;
+            yield return null;
+        }
+    }
+
+    public IEnumerator TutorialLateral()
+    {
+        float startX = transform.position.x;
+        bool done = false;
+        while(!done)
+        {
+            done = transform.position.x > startX + 2 || transform.position.x < startX - 2;
+            yield return null;
+        }
+        yield return new WaitForSeconds(2.0f);
+    }
+
+    public IEnumerator TutorialVertical()
+    {
+        float startY = transform.position.y;
+        bool done = false;
+        while (!done)
+        {
+            done = transform.position.y > startY + 2 || transform.position.x < startY - 2;
+            yield return null;
+        }
+        yield return new WaitForSeconds(2.0f);
     }
     #endregion
 }
