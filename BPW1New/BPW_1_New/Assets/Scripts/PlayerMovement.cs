@@ -69,8 +69,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 Instantiate(bullet, new Vector3(transform.position.x + bulletHorOffset, transform.position.y + bulletVerOffset, transform.position.z), Quaternion.identity);
                 Instantiate(bullet, new Vector3(transform.position.x - bulletHorOffset, transform.position.y + bulletVerOffset, transform.position.z), Quaternion.identity);
-
-
+                AudioM.Instance.PlayLaserSound();
                 StartCoroutine(ReloadBullets());
             }
         }
