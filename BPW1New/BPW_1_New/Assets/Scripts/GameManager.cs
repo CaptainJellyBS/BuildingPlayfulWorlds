@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -10,12 +11,19 @@ public class GameManager : MonoBehaviour
     public PlayerMovement player;
     public ObstacleSpawner spawner;
     public ObstacleSpawner mineSpawner;
-    public Text introText1, introText2, flightControlText1, flightControlText2;
+    public Text introText1, introText2, flightControlText1, flightControlText2, flightControlText3, introText3;
     public Text timeValue, scoreValue;
+    public Text deathScoreValue;
     public GameObject timeScorePanel;
     public bool currentlyTiming;
     public int score = 0;
 
+    public GameObject deathPanel;
+    public GameObject pausePanel;
+
+    public AmmoPanel[] ammoPanels;
+
+    bool paused = false;
     float timer = 0;
     void Awake()
     {
@@ -25,9 +33,12 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame updat
     void Start()
     {
+        deathPanel.SetActive(false);
+        pausePanel.SetActive(false);
+        foreach(AmmoPanel a in ammoPanels) { a.gameObject.SetActive(false); }
         StartCoroutine(Tutorial());
         //DEBUG
-
+        if (paused) { TogglePause(); } //In case we paused and then went back to main menu, unpause
         StartTimer(-2.0f);
 
     }
@@ -36,11 +47,15 @@ public class GameManager : MonoBehaviour
     {
         UpdateTimer();
         scoreValue.text = score.ToString("000000");
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        { TogglePause(); }
     }
 
     IEnumerator Tutorial()
     {
-        introText1.enabled = true; introText2.enabled = false; flightControlText1.enabled = false; flightControlText2.enabled = false;
+        introText1.enabled = true; introText2.enabled = false; flightControlText1.enabled = false; 
+        flightControlText2.enabled = false; flightControlText3.enabled = false; introText3.enabled = false;
         timeScorePanel.SetActive(false);
         yield return player.StartCoroutine(player.IntroRoutine());
 
@@ -51,6 +66,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
 
         player.canMove = true;
+
         introText2.enabled = false;
         yield return new WaitForSeconds(0.5f);
 
@@ -64,13 +80,70 @@ public class GameManager : MonoBehaviour
         yield return player.StartCoroutine(player.TutorialVertical());
 
         flightControlText2.enabled = false;
+        yield return new WaitForSeconds(0.5f);
+
+        flightControlText3.enabled = true;
+        player.canShoot = true;
+        foreach (AmmoPanel a in ammoPanels) { a.gameObject.SetActive(true); }
+        yield return player.StartCoroutine(player.TutorialShoot());
+
+        flightControlText3.enabled = false;
+        yield return new WaitForSeconds(0.5f);
+
+        introText3.enabled = true;
+        yield return new WaitForSeconds(3.0f);
+
         timeScorePanel.SetActive(true);
         spawner.StartSpawning();
         mineSpawner.StartSpawning();
+        yield return new WaitForSeconds(1.0f);
+
+        introText3.enabled = false;
 
     }
 
+    public void Die()
+    {
+        deathPanel.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
 
+        deathScoreValue.text = score.ToString("000000");
+    }
+
+    #region pause stuff
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void ToMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+
+    public void TogglePause()
+    {
+        Debug.Log("HELLO");
+        if (!paused)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0.0f;
+            paused = true;
+        }
+        else
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+
+            Time.timeScale = 1.0f;
+            paused = false;
+        }
+        pausePanel.SetActive(paused);
+    }
+    #endregion
     #region time stuff
 
     void StartTimer(float startTime = 0.0f)

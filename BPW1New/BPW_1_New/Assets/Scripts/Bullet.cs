@@ -25,7 +25,7 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        if(col.gameObject.CompareTag("Player")) { return; } //Player cannot shoot self
+        if(col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Bullet")) { return; } //Player cannot shoot self, bullets will not destroy bullets.
         if(col.gameObject.CompareTag("Mine")) { col.gameObject.GetComponent<MineMovement>().Explode(); }
         Destroy(gameObject);
     }

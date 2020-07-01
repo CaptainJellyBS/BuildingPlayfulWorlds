@@ -12,11 +12,15 @@ public class PlayerMovement : MonoBehaviour
     public float bulletHorOffset, bulletVerOffset;
     public float sensitivityX, sensitivityY, minimumX, maximumX, minimumY, maximumY;
     public float xRotationDeadzoneAngle, yRotationDeadzoneAngle;
+    public float fireDelay, reloadTime;
     float rotX, rotY;
     Quaternion originalRotation;
     public bool canMove = false;
-
+    public bool canShoot = false;
     public GameObject bullet;
+    public AmmoPanel[] ammoPanels;
+    public int currentBullet = 0;
+    int maxBullets;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         originalRotation = transform.localRotation;
+        maxBullets = ammoPanels[0].bulletIcons.Length;
     }
 
     // Update is called once per frame
@@ -58,10 +63,16 @@ public class PlayerMovement : MonoBehaviour
             transform.position += Vector3.up * rotY * verticalSpeed * Time.deltaTime;
         }
 
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButton(0))
         {
-            Instantiate(bullet, new Vector3(transform.position.x + bulletHorOffset, transform.position.y + bulletVerOffset, transform.position.z), Quaternion.identity);
-            Instantiate(bullet, new Vector3(transform.position.x - bulletHorOffset, transform.position.y + bulletVerOffset, transform.position.z), Quaternion.identity);
+            if (canShoot)
+            {
+                Instantiate(bullet, new Vector3(transform.position.x + bulletHorOffset, transform.position.y + bulletVerOffset, transform.position.z), Quaternion.identity);
+                Instantiate(bullet, new Vector3(transform.position.x - bulletHorOffset, transform.position.y + bulletVerOffset, transform.position.z), Quaternion.identity);
+
+
+                StartCoroutine(ReloadBullets());
+            }
         }
     }
 
@@ -73,6 +84,9 @@ public class PlayerMovement : MonoBehaviour
         switch (col.gameObject.tag)
         {
             case "Floor": onGround = true; break;
+            case "Obstacle":
+            case "Mine":
+            case "Death": Die(); break;
             default: break;
         }
     }
@@ -91,6 +105,28 @@ public class PlayerMovement : MonoBehaviour
     Vector3 VectorOnPlane(Vector3 vector, Vector3 planeNormal)
     {
         return Vector3.ProjectOnPlane(vector, planeNormal);
+    }
+
+    IEnumerator ReloadBullets()
+    {
+        canShoot = false;
+
+        foreach (AmmoPanel a in ammoPanels) { a.RemoveBullet(currentBullet); }
+        currentBullet++;
+
+        if (currentBullet < maxBullets)
+        {
+            yield return new WaitForSeconds(fireDelay);
+        }
+        else
+        {
+            yield return new WaitForSeconds(reloadTime);
+            currentBullet = 0;
+            foreach (AmmoPanel a in ammoPanels) { a.ReloadBullets(); }
+        }
+
+        canShoot = true;
+
     }
     #endregion
 
@@ -138,5 +174,25 @@ public class PlayerMovement : MonoBehaviour
         }
         yield return new WaitForSeconds(2.0f);
     }
+    public IEnumerator TutorialShoot()
+    {
+        float startY = transform.position.y;
+        bool done = false;
+        while (!done)
+        {
+            done = Input.GetMouseButton(0);
+            yield return null;
+        }
+        yield return new WaitForSeconds(2.0f);
+    }
+    #endregion
+
+    #region Death
+
+    void Die()
+    {
+        GameManager.Instance.Die();
+    }
+
     #endregion
 }
