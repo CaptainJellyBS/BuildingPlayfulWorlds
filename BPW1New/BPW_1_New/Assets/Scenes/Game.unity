@@ -4830,7 +4830,7 @@ MonoBehaviour:
   fireDelay: 0.3
   reloadTime: 2
   canMove: 0
-  canShoot: 1
+  canShoot: 0
   bullet: {fileID: 2784576242050044867, guid: 2bc10e239800090468feacfebd11183a, type: 3}
   ammoPanels:
   - {fileID: 868025394}
