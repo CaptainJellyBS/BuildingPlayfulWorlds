@@ -10,6 +10,8 @@ TagManager:
   - Mine
   - Bullet
   - AudioManager
+  - HighscoreManager
+  - PersistentData
   layers:
   - Default
   - TransparentFX

@@ -555,6 +555,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 53928215}
   m_CullTransparentMesh: 0
+--- !u!1 &73388041
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 73388042}
+  - component: {fileID: 73388043}
+  m_Layer: 0
+  m_Name: MineSpawnerCol
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &73388042
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73388041}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 15, z: 80}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 172195014}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &73388043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73388041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 802f7fcc31241d940bdf6fe0c54ff03d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseObstacle: {fileID: 1497936511677136663, guid: ab49ae6ca2995f646b35768fc8fcf5ae,
+    type: 3}
+  minimumTime: 4
+  maximumTime: 8
+  minimumSize: 2
+  maximumSize: 5
+  minimumSpeed: 5
+  maximumSpeed: 18
+  maxOffsetX: 20
+  maxOffsetY: 10
+  maxDirectionVariation: 0.35
 --- !u!1 &78186995
 GameObject:
   m_ObjectHideFlags: 0
@@ -1037,6 +1091,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 164316868}
   m_CullTransparentMesh: 0
+--- !u!1 &172195013
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 172195014}
+  m_Layer: 0
+  m_Name: MineSpawners
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &172195014
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172195013}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2010718545}
+  - {fileID: 1615213441}
+  - {fileID: 73388042}
+  - {fileID: 1686474317}
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &207146937
 GameObject:
   m_ObjectHideFlags: 0
@@ -2068,6 +2156,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 561317845}
   m_CullTransparentMesh: 0
+--- !u!1 &567098997
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 567098998}
+  - component: {fileID: 567098999}
+  m_Layer: 0
+  m_Name: ObstacleSpawnerCol
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &567098998
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567098997}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 15, z: 80}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1103238761}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &567098999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567098997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 802f7fcc31241d940bdf6fe0c54ff03d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseObstacle: {fileID: 3193640173048819632, guid: 9e843e92c0bd35c4899608a6e321211b,
+    type: 3}
+  minimumTime: 0.2
+  maximumTime: 1.5
+  minimumSize: 3
+  maximumSize: 11
+  minimumSpeed: 6
+  maximumSpeed: 21
+  maxOffsetX: 20
+  maxOffsetY: 10
+  maxDirectionVariation: 0.35
 --- !u!1 &626478090
 GameObject:
   m_ObjectHideFlags: 0
@@ -3474,7 +3616,7 @@ GameObject:
   - component: {fileID: 967946784}
   - component: {fileID: 967946783}
   m_Layer: 0
-  m_Name: ObstacleSpawner
+  m_Name: ObstacleSpawnerCapt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3510,12 +3652,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 967946782}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 15, z: 80}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 1103238761}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &992953137
 GameObject:
@@ -3631,6 +3773,40 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1103238760
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1103238761}
+  m_Layer: 0
+  m_Name: Spawners
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1103238761
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103238760}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1957508084}
+  - {fileID: 967946784}
+  - {fileID: 567098998}
+  - {fileID: 1899967515}
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1128333592
 GameObject:
   m_ObjectHideFlags: 0
@@ -3842,8 +4018,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1963616014}
-  spawner: {fileID: 967946783}
-  mineSpawner: {fileID: 1615213440}
   introText1: {fileID: 1605950868}
   introText2: {fileID: 534832360}
   flightControlText1: {fileID: 16993164}
@@ -3861,6 +4035,18 @@ MonoBehaviour:
   ammoPanels:
   - {fileID: 868025394}
   - {fileID: 561317847}
+  spawners:
+  - {fileID: 1957508085}
+  - {fileID: 1957508085}
+  - {fileID: 967946783}
+  - {fileID: 567098999}
+  - {fileID: 1899967516}
+  mineSpawners:
+  - {fileID: 2010718546}
+  - {fileID: 2010718546}
+  - {fileID: 1615213440}
+  - {fileID: 73388043}
+  - {fileID: 1686474318}
 --- !u!1 &1509200095
 GameObject:
   m_ObjectHideFlags: 0
@@ -4345,7 +4531,7 @@ GameObject:
   - component: {fileID: 1615213441}
   - component: {fileID: 1615213440}
   m_Layer: 0
-  m_Name: MineSpawner
+  m_Name: MineSpawnerCapt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4381,12 +4567,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1615213439}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 15, z: 80}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 172195014}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1629327849
 GameObject:
@@ -4538,6 +4724,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1650087085}
   m_CullTransparentMesh: 0
+--- !u!1 &1686474316
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1686474317}
+  - component: {fileID: 1686474318}
+  m_Layer: 0
+  m_Name: MineSpawnerGen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1686474317
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686474316}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 15, z: 80}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 172195014}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1686474318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686474316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 802f7fcc31241d940bdf6fe0c54ff03d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseObstacle: {fileID: 1497936511677136663, guid: ab49ae6ca2995f646b35768fc8fcf5ae,
+    type: 3}
+  minimumTime: 2
+  maximumTime: 6
+  minimumSize: 1
+  maximumSize: 4
+  minimumSpeed: 7
+  maximumSpeed: 18
+  maxOffsetX: 20
+  maxOffsetY: 10
+  maxDirectionVariation: 0.35
 --- !u!1 &1720320408
 GameObject:
   m_ObjectHideFlags: 0
@@ -4696,6 +4936,114 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1868146165}
   m_CullTransparentMesh: 0
+--- !u!1 &1899967514
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1899967515}
+  - component: {fileID: 1899967516}
+  m_Layer: 0
+  m_Name: ObstacleSpawnerGen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1899967515
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899967514}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 15, z: 80}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1103238761}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1899967516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899967514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 802f7fcc31241d940bdf6fe0c54ff03d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseObstacle: {fileID: 3193640173048819632, guid: 9e843e92c0bd35c4899608a6e321211b,
+    type: 3}
+  minimumTime: 0.1
+  maximumTime: 1
+  minimumSize: 4
+  maximumSize: 12
+  minimumSpeed: 8
+  maximumSpeed: 28
+  maxOffsetX: 20
+  maxOffsetY: 10
+  maxDirectionVariation: 0.35
+--- !u!1 &1957508083
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1957508084}
+  - component: {fileID: 1957508085}
+  m_Layer: 0
+  m_Name: ObstacleSpawnerLt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1957508084
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1957508083}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 15, z: 80}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1103238761}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1957508085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1957508083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 802f7fcc31241d940bdf6fe0c54ff03d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseObstacle: {fileID: 3193640173048819632, guid: 9e843e92c0bd35c4899608a6e321211b,
+    type: 3}
+  minimumTime: 0.4
+  maximumTime: 2.5
+  minimumSize: 1
+  maximumSize: 6
+  minimumSpeed: 5
+  maximumSpeed: 15
+  maxOffsetX: 20
+  maxOffsetY: 10
+  maxDirectionVariation: 0.35
 --- !u!1 &1963616009
 GameObject:
   m_ObjectHideFlags: 0
@@ -4820,6 +5168,8 @@ MonoBehaviour:
   yRotationDeadzoneAngle: 2.5
   fireDelay: 0.3
   reloadTime: 2
+  airDodgeTime: 0.15
+  airDodgeSpeed: 4
   canMove: 0
   canShoot: 0
   bullet: {fileID: 2784576242050044867, guid: 2bc10e239800090468feacfebd11183a, type: 3}
@@ -4843,6 +5193,60 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!1 &2010718544
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2010718545}
+  - component: {fileID: 2010718546}
+  m_Layer: 0
+  m_Name: MineSpawnerLt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2010718545
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2010718544}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 15, z: 80}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 172195014}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2010718546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2010718544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 802f7fcc31241d940bdf6fe0c54ff03d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseObstacle: {fileID: 1497936511677136663, guid: ab49ae6ca2995f646b35768fc8fcf5ae,
+    type: 3}
+  minimumTime: 5
+  maximumTime: 10
+  minimumSize: 4
+  maximumSize: 7
+  minimumSpeed: 4
+  maximumSpeed: 10
+  maxOffsetX: 20
+  maxOffsetY: 10
+  maxDirectionVariation: 0.35
 --- !u!1 &2041431226
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public float sensitivityX, sensitivityY, minimumX, maximumX, minimumY, maximumY;
     public float xRotationDeadzoneAngle, yRotationDeadzoneAngle;
     public float fireDelay, reloadTime;
+    public float airDodgeTime, airDodgeSpeed;
     float rotX, rotY;
     Quaternion originalRotation;
     public bool canMove = false;
@@ -43,6 +44,9 @@ public class PlayerMovement : MonoBehaviour
     //Mouse rotation code taken from: https://answers.unity.com/questions/29741/mouse-look-script.html and adapted to suit my game
     void HandleInput()
     {
+        Vector3 verMove = Vector3.zero;
+        Vector3 latMove = Vector3.zero;
+
         if (!canMove) { return; }
         //Mouse Rotation
         rotX += Input.GetAxis("Mouse X") * sensitivityX;
@@ -56,11 +60,13 @@ public class PlayerMovement : MonoBehaviour
         //Calculate lateral and vertical movement from Mouse Rotation, with a deadzone
         if (Mathf.Abs(rotX) > xRotationDeadzoneAngle)
         {
-            transform.position += VectorOnPlane(transform.right, Vector3.up) * -rotX * lateralSpeed * Time.deltaTime;
+            latMove = VectorOnPlane(transform.right, Vector3.up) * -rotX * lateralSpeed * Time.deltaTime;
+            transform.position += latMove;
         }
         if (Mathf.Abs(rotY) > yRotationDeadzoneAngle)
         {
-            transform.position += Vector3.up * rotY * verticalSpeed * Time.deltaTime;
+            verMove = Vector3.up * rotY * verticalSpeed * Time.deltaTime;
+            transform.position += verMove;
         }
 
         if(Input.GetMouseButton(0))
@@ -73,6 +79,29 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(ReloadBullets());
             }
         }
+
+        //Check if airdodging
+        if (Input.GetMouseButtonDown(1) && canShoot)
+        {
+            StartCoroutine(AirDodge(latMove + verMove));
+        }
+    }
+    public IEnumerator AirDodge(Vector3 dir)
+    {
+        EmptyBullets();
+        float t = 0;
+        while (t < airDodgeTime)
+        {
+            t += Time.deltaTime;
+
+            Vector3 latMove = VectorOnPlane(transform.right, Vector3.up) * -rotX * airDodgeSpeed * Time.deltaTime;
+            transform.position += latMove;
+
+            Vector3 verMove = Vector3.up * rotY * airDodgeSpeed * Time.deltaTime;
+            transform.position += verMove;
+            yield return null;
+        }
+
     }
 
     #endregion
@@ -104,6 +133,21 @@ public class PlayerMovement : MonoBehaviour
     Vector3 VectorOnPlane(Vector3 vector, Vector3 planeNormal)
     {
         return Vector3.ProjectOnPlane(vector, planeNormal);
+    }
+
+    void EmptyBullets()
+    {
+        foreach (AmmoPanel a in ammoPanels) 
+        {
+            for (int i = 0; i < maxBullets; i++)
+            {
+                a.RemoveBullet(i);    
+            }             
+        }
+        currentBullet = maxBullets-1;
+        StartCoroutine(ReloadBullets());
+
+
     }
 
     IEnumerator ReloadBullets()
@@ -149,6 +193,8 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
     }
+
+
 
     public IEnumerator TutorialLateral()
     {

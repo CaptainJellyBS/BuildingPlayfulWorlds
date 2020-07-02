@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,8 +10,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public PlayerMovement player;
-    public ObstacleSpawner spawner;
-    public ObstacleSpawner mineSpawner;
+    ObstacleSpawner spawner;
+    ObstacleSpawner mineSpawner;
     public Text introText1, introText2, flightControlText1, flightControlText2, flightControlText3, introText3;
     public Text timeValue, scoreValue;
     public Text deathScoreValue;
@@ -23,8 +24,12 @@ public class GameManager : MonoBehaviour
 
     public AmmoPanel[] ammoPanels;
 
+    public ObstacleSpawner[] spawners;
+    public ObstacleSpawner[] mineSpawners;
+
     bool paused = false;
     float timer = 0;
+    bool tutorialFinished = false;
     void Awake()
     {
         Instance = this;
@@ -33,14 +38,23 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame updat
     void Start()
     {
+        spawner = spawners[(int)MiscPersistentData.Instance.currentLevel];
+        mineSpawner = mineSpawners[(int)MiscPersistentData.Instance.currentLevel];
+
         deathPanel.SetActive(false);
         pausePanel.SetActive(false);
-        foreach(AmmoPanel a in ammoPanels) { a.gameObject.SetActive(false); }
-        StartCoroutine(Tutorial());
-        //DEBUG
-        if (paused) { TogglePause(); } //In case we paused and then went back to main menu, unpause
-        StartTimer(-2.0f);
 
+        introText1.enabled = false; introText2.enabled = false; flightControlText1.enabled = false;
+        flightControlText2.enabled = false; flightControlText3.enabled = false; introText3.enabled = false;
+        timeScorePanel.SetActive(false);
+
+        foreach (AmmoPanel a in ammoPanels) { a.gameObject.SetActive(false); }
+  
+        if (paused) { TogglePause(); } //In case we paused and then went back to main menu, unpause
+
+        if (MiscPersistentData.Instance.currentLevel == DifficultyLevel.Cadet) { StartCoroutine(Tutorial()); }
+        else { StartCoroutine(NormalStart()); }
+        
     }
 
     void Update()
@@ -51,12 +65,14 @@ public class GameManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape))
         { TogglePause(); }
     }
-
+    
+    /// <summary>
+    /// Tutorial sequence that teaches the controles
+    /// </summary>
+    /// <returns></returns>
     IEnumerator Tutorial()
     {
-        introText1.enabled = true; introText2.enabled = false; flightControlText1.enabled = false; 
-        flightControlText2.enabled = false; flightControlText3.enabled = false; introText3.enabled = false;
-        timeScorePanel.SetActive(false);
+        introText1.enabled = true;
         yield return player.StartCoroutine(player.IntroRoutine());
 
         introText1.enabled = false;
@@ -95,15 +111,39 @@ public class GameManager : MonoBehaviour
 
         timeScorePanel.SetActive(true);
         spawner.StartSpawning();
-        mineSpawner.StartSpawning();
+        mineSpawner.StartSpawning(); 
+        StartTimer(-2.0f);
+        tutorialFinished = true;
+        MiscPersistentData.Instance.levelsAvailable[1] = true; //Unlock Lieutenant level when finishing the tutorial
         yield return new WaitForSeconds(1.0f);
 
         introText3.enabled = false;
 
     }
 
+    /// <summary>
+    /// Normal start without the tutorial
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator NormalStart()
+    {
+        tutorialFinished = true;
+        foreach (AmmoPanel a in ammoPanels) { a.gameObject.SetActive(true); }
+
+        yield return player.StartCoroutine(player.IntroRoutine());
+        player.canShoot = true;
+        player.canMove = true;
+        timeScorePanel.SetActive(true);
+        spawner.StartSpawning();
+        mineSpawner.StartSpawning(); 
+        timeScorePanel.SetActive(true);
+        StartTimer(-2.0f);
+
+    }
+
     public void Die()
     {
+        HighscoreManager.Instance.AddScore(MiscPersistentData.Instance.currentLevel, MiscPersistentData.Instance.playerName, score);
         deathPanel.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -111,9 +151,16 @@ public class GameManager : MonoBehaviour
         deathScoreValue.text = score.ToString("000000");
     }
 
+
     #region pause stuff
     public void RestartLevel()
     {
+        //If we're on Cadet level, and we finished the tutorial, go to Lieutenant level to skip the tutorial
+        if(MiscPersistentData.Instance.currentLevel == DifficultyLevel.Cadet && tutorialFinished)
+        {
+            MiscPersistentData.Instance.currentLevel = DifficultyLevel.Lieutenant;
+        }
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -184,5 +231,5 @@ public class GameManager : MonoBehaviour
 
         return sign + minutes.ToString("00") + ":" + seconds.ToString("00") + ":" + milliseconds.ToString("00");
     }
-#endregion
+    #endregion
 }

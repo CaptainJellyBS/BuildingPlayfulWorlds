@@ -2,10 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuButtons : MonoBehaviour
 {
     public int firstScene;
+    public Slider masterSlider, sfxSlider, musicSlider;
+    public GameObject cannotStartNoName;
+    public bool canStartPlay = false;
+
+    public Button LtButton, CptButton, ColButton, GenButton;
+    public GameObject LtRequireText, CptRequireText, ColRequireText, GenRequireText;
+
 
     private void Start()
     {
@@ -13,13 +21,81 @@ public class MenuButtons : MonoBehaviour
         Cursor.visible = true;
         Time.timeScale = 1.0f;
     }
-    public void StartGame()
+
+    public void SetDifficultyButtons()
     {
-        SceneManager.LoadScene(firstScene);
+        if (MiscPersistentData.Instance.levelsAvailable[1])
+        { 
+            LtButton.interactable = true; 
+            LtRequireText.SetActive(false); 
+        }
+        else 
+        { 
+            LtButton.interactable = false; LtRequireText.SetActive(true); 
+        }
+
+        if (MiscPersistentData.Instance.levelsAvailable[2])
+        {
+            CptButton.interactable = true;
+            CptRequireText.SetActive(false);
+        }
+        else
+        { 
+            CptButton.interactable = false; CptRequireText.SetActive(true); 
+        }
+
+        if (MiscPersistentData.Instance.levelsAvailable[3])
+        {
+            ColButton.interactable = true;
+            ColRequireText.SetActive(false);
+        }
+        else
+        {
+            ColButton.interactable = false; ColRequireText.SetActive(true);
+        }
+
+        if (MiscPersistentData.Instance.levelsAvailable[4])
+        {
+            GenButton.interactable = true;
+            GenRequireText.SetActive(false);
+        }
+        else
+        { 
+            GenButton.interactable = false; GenRequireText.SetActive(true);
+        }
+    }
+
+    public void StartGame(int level)
+    {
+        MiscPersistentData.Instance.currentLevel = (DifficultyLevel)level;
+        if (canStartPlay)
+        {
+            SceneManager.LoadScene(firstScene);
+        }
+        else
+        {
+            cannotStartNoName.SetActive(true);
+        }
     }
 
     public void QuitGame()
     {
         Application.Quit();
     }
+
+    /// <summary>
+    /// Set the volume sliders in the menu to the correct values
+    /// </summary>
+    public void SetVolumeSliders()
+    {
+        masterSlider.value = AudioM.Instance.MasterVolume;
+        sfxSlider.value = AudioM.Instance.SFXVolume;
+        musicSlider.value = AudioM.Instance.MusicVolume;
+    }
+
+    public void SetName(string name)
+    {
+        MiscPersistentData.Instance.playerName = name;
+        canStartPlay = true;
+    }    
 }

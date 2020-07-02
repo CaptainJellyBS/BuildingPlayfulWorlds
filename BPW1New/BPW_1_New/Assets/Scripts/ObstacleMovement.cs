@@ -6,6 +6,7 @@ public class ObstacleMovement : MonoBehaviour
 {
     protected float obstacleSpeed;
     public float zBound;
+    float scaled;
     protected Rigidbody rb;
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,7 @@ public class ObstacleMovement : MonoBehaviour
         transform.localScale = new Vector3(scale, scale, scale);
         rb.mass = scale;
         rb.velocity = direction * obstacleSpeed;
+        scaled = scale;
     }
 
     // Update is called once per frame
@@ -36,7 +38,7 @@ public class ObstacleMovement : MonoBehaviour
         //Despawn obstacles once they're behind the player
         if(transform.position.z <= -90)
         {
-            GameManager.Instance.score++;
+            GameManager.Instance.score+=(int)Mathf.Ceil(scaled);
             Destroy(gameObject);
         }
     }

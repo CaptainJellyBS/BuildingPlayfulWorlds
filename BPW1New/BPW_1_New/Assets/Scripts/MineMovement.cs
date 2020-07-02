@@ -45,6 +45,8 @@ public class MineMovement : ObstacleMovement
 
     public void Explode()
     {
+        GameManager.Instance.score += 5;
+
         Instantiate(explosion, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
