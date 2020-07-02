@@ -59,6 +59,19 @@ public class HighscoreData
 
     string ParseEntry(int i)
     {
-        return Names[i] + " : " + Scores[i];
+        string result = Names[i];
+
+        result = result.PadRight(30,' ');        
+        result += " : " + Scores[i];
+        return result;
+    }
+
+    public void Reset()
+    {
+        Names[4] = "Cadet Scrubbington"; Scores[4] = 2;
+        Names[3] = "Lieutenant Prettitrash"; Scores[3] = 3;
+        Names[2] = "Captain Tuffman"; Scores[2] = 100;
+        Names[1] = "Colonel Maverick"; Scores[1] = 500;
+        Names[0] = "General Skydancer"; Scores[0] = 1000;
     }
 }

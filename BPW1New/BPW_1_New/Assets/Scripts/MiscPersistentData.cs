@@ -15,7 +15,7 @@ public class MiscPersistentData : MonoBehaviour
     // Start is called before the first frame update
 
 
-    void Start()
+    void Awake()
     {
         GameObject[] objs = GameObject.FindGameObjectsWithTag("PersistentData");
 

@@ -5,5 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class SaveData
 {
-    List<KeyValuePair<string, int>> hs = new List<KeyValuePair<string, int>>();
+    public string[] names;
+    public int[] scores;
+    public bool[] unlocked;
 }

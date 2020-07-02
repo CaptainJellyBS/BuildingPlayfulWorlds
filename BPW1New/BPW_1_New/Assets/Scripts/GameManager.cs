@@ -144,6 +144,8 @@ public class GameManager : MonoBehaviour
     public void Die()
     {
         HighscoreManager.Instance.AddScore(MiscPersistentData.Instance.currentLevel, MiscPersistentData.Instance.playerName, score);
+        HighscoreManager.Instance.SaveHighscores();
+
         deathPanel.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;

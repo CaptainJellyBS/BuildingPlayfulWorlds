@@ -14,6 +14,8 @@ public class MenuButtons : MonoBehaviour
     public Button LtButton, CptButton, ColButton, GenButton;
     public GameObject LtRequireText, CptRequireText, ColRequireText, GenRequireText;
 
+    public Text highScoreText;
+
 
     private void Start()
     {
@@ -65,6 +67,12 @@ public class MenuButtons : MonoBehaviour
         }
     }
 
+    public void SetHighScoreText()
+    {
+        HighscoreManager.Instance.LoadHighscores();
+        highScoreText.text = HighscoreManager.Instance.HighScoreString();
+    }
+
     public void StartGame(int level)
     {
         MiscPersistentData.Instance.currentLevel = (DifficultyLevel)level;
@@ -95,7 +103,18 @@ public class MenuButtons : MonoBehaviour
 
     public void SetName(string name)
     {
+        //Ensure name is no longer than 30 characters
+        if(name.Length>=20)
+        {
+            name = name.Substring(0, 20);
+        }
+
         MiscPersistentData.Instance.playerName = name;
         canStartPlay = true;
-    }    
+    }
+    
+    public void ClearSave()
+    {
+        HighscoreManager.Instance.ClearSave();
+    }
 }

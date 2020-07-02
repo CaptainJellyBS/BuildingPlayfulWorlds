@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public class HighscoreManager : MonoBehaviour
@@ -24,12 +26,7 @@ public class HighscoreManager : MonoBehaviour
 
         data = new HighscoreData(5);
 
-        data.AddScore("Test 1", 19);
-        data.AddScore("Test 2", 4);
-        data.AddScore("Test 3", 3444);
-        data.AddScore("Test 4", 1);
-        data.AddScore("Test 5", 43);
-
+        LoadHighscores();
         Debug.Log(data.ToString());
     }
 
@@ -43,6 +40,58 @@ public class HighscoreManager : MonoBehaviour
         data.AddScore(lev.ToString() + " " + name, score);
     }
 
-    //Load and save score here
 
+    //Saving data code stolen from: https://www.raywenderlich.com/418-how-to-save-and-load-a-game-in-unity#toc-anchor-001
+    public void SaveHighscores()
+    {
+        SaveData saveData = new SaveData();
+        saveData.names = data.Names;
+        saveData.scores = data.Scores;
+        saveData.unlocked = MiscPersistentData.Instance.levelsAvailable;
+
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");
+        bf.Serialize(file, saveData);
+        file.Close();
+    }
+
+    //Loading data code stolen from: https://www.raywenderlich.com/418-how-to-save-and-load-a-game-in-unity#toc-anchor-001
+    public void LoadHighscores()
+    {
+        if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
+            SaveData save = (SaveData)bf.Deserialize(file);
+            file.Close();
+            data.Reset();
+            for (int i = 0; i < save.names.Length; i++)
+            {
+                //data.AddScore(save.names[i], save.scores[i]);
+                data.Names[i] = save.names[i];
+                data.Scores[i] = save.scores[i];
+            }
+
+            MiscPersistentData.Instance.levelsAvailable = save.unlocked;
+        }
+
+        else
+        {
+            data.Reset();
+            Debug.Log("No game saved!");
+            SaveHighscores();
+        }
+    }
+
+    public void ClearSave()
+    {
+        data.Reset();
+        MiscPersistentData.Instance.levelsAvailable = new bool[] { true, false, false, false, false };
+        SaveHighscores();
+    }
+
+    public string HighScoreString()
+    {
+        return data.ToString();
+    }
 }
