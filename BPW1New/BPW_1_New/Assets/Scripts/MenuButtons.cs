@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class MenuButtons : MonoBehaviour
 {
     public int firstScene;
-    public Slider masterSlider, sfxSlider, musicSlider;
+    public Slider masterSlider, sfxSlider, musicSlider, voiceSlider;
     public GameObject cannotStartNoName;
     public bool canStartPlay = false;
 
@@ -99,6 +99,7 @@ public class MenuButtons : MonoBehaviour
         masterSlider.value = AudioM.Instance.MasterVolume;
         sfxSlider.value = AudioM.Instance.SFXVolume;
         musicSlider.value = AudioM.Instance.MusicVolume;
+        voiceSlider.value = AudioM.Instance.VoiceVolume;
     }
 
     public void SetName(string name)
@@ -116,5 +117,22 @@ public class MenuButtons : MonoBehaviour
     public void ClearSave()
     {
         HighscoreManager.Instance.ClearSave();
+    }
+    public void UpdateMasterVolume(float newVolume)
+    {
+        AudioM.Instance.UpdateMasterVolume(newVolume);
+    }
+    public void UpdateSFXVolume(float newVolume)
+    {
+        AudioM.Instance.UpdateSFXVolume(newVolume);
+    }
+    public void UpdateVoiceVolume(float newVolume)
+    {
+        AudioM.Instance.UpdateVoiceVolume(newVolume);
+    }
+
+    public void UpdateMusicVolume(float newVolume)
+    {
+        AudioM.Instance.UpdateMusicVolume(newVolume);
     }
 }

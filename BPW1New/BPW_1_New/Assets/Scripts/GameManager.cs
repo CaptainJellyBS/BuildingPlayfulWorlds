@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public PlayerMovement player;
     ObstacleSpawner spawner;
     ObstacleSpawner mineSpawner;
-    public Text introText1, introText2, flightControlText1, flightControlText2, flightControlText3, introText3;
+    public Text introText1, introText2, flightControlText1, flightControlText2, flightControlText3, flightControlText4, introText3;
     public Text timeValue, scoreValue;
     public Text deathScoreValue;
     public GameObject timeScorePanel;
@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     public GameObject pausePanel;
 
     public AmmoPanel[] ammoPanels;
+    public Slider masterSlider, sfxSlider, musicSlider, voiceSlider;
+
 
     public ObstacleSpawner[] spawners;
     public ObstacleSpawner[] mineSpawners;
@@ -45,7 +47,7 @@ public class GameManager : MonoBehaviour
         pausePanel.SetActive(false);
 
         introText1.enabled = false; introText2.enabled = false; flightControlText1.enabled = false;
-        flightControlText2.enabled = false; flightControlText3.enabled = false; introText3.enabled = false;
+        flightControlText2.enabled = false; flightControlText3.enabled = false; flightControlText4.enabled = false;  introText3.enabled = false;
         timeScorePanel.SetActive(false);
 
         foreach (AmmoPanel a in ammoPanels) { a.gameObject.SetActive(false); }
@@ -73,40 +75,83 @@ public class GameManager : MonoBehaviour
     IEnumerator Tutorial()
     {
         introText1.enabled = true;
+        AudioM.Instance.PlayVoiceLine(0);
         yield return player.StartCoroutine(player.IntroRoutine());
+
+        while(AudioM.Instance.IsLinePlaying(0))
+        {
+            yield return null;
+        }
 
         introText1.enabled = false;
         yield return new WaitForSeconds(0.5f);
 
         introText2.enabled = true;
-        yield return new WaitForSeconds(2.0f);
-
+        AudioM.Instance.PlayVoiceLine(1);
+        
+        while (AudioM.Instance.IsLinePlaying(1))
+        {
+            yield return null;
+        }
         player.canMove = true;
 
         introText2.enabled = false;
         yield return new WaitForSeconds(0.5f);
 
         flightControlText1.enabled = true;
+        AudioM.Instance.PlayVoiceLine(2);
+
         yield return player.StartCoroutine(player.TutorialLateral());
+       
+        while (AudioM.Instance.IsLinePlaying(2))
+        {
+            yield return null;
+        }
 
         flightControlText1.enabled = false;
         yield return new WaitForSeconds(0.5f);
 
         flightControlText2.enabled = true;
+        AudioM.Instance.PlayVoiceLine(3);
+
         yield return player.StartCoroutine(player.TutorialVertical());
+
+        while (AudioM.Instance.IsLinePlaying(3))
+        {
+            yield return null;
+        }
 
         flightControlText2.enabled = false;
         yield return new WaitForSeconds(0.5f);
 
         flightControlText3.enabled = true;
+        AudioM.Instance.PlayVoiceLine(4);
+
         player.canShoot = true;
         foreach (AmmoPanel a in ammoPanels) { a.gameObject.SetActive(true); }
         yield return player.StartCoroutine(player.TutorialShoot());
+        
+        while (AudioM.Instance.IsLinePlaying(4))
+        {
+            yield return null;
+        }
 
         flightControlText3.enabled = false;
         yield return new WaitForSeconds(0.5f);
 
+        flightControlText4.enabled = true;
+        AudioM.Instance.PlayVoiceLine(5);
+
+        yield return player.StartCoroutine(player.TutorialDodge());
+
+        while (AudioM.Instance.IsLinePlaying(5))
+        {
+            yield return null;
+        }
+
+        flightControlText4.enabled = false;
         introText3.enabled = true;
+        AudioM.Instance.PlayVoiceLine(6);
         yield return new WaitForSeconds(3.0f);
 
         timeScorePanel.SetActive(true);
@@ -115,7 +160,11 @@ public class GameManager : MonoBehaviour
         StartTimer(-2.0f);
         tutorialFinished = true;
         MiscPersistentData.Instance.levelsAvailable[1] = true; //Unlock Lieutenant level when finishing the tutorial
-        yield return new WaitForSeconds(1.0f);
+
+        while (AudioM.Instance.IsLinePlaying(6))
+        {
+            yield return null;
+        }
 
         introText3.enabled = false;
 
@@ -234,4 +283,30 @@ public class GameManager : MonoBehaviour
         return sign + minutes.ToString("00") + ":" + seconds.ToString("00") + ":" + milliseconds.ToString("00");
     }
     #endregion
+
+    public void UpdateMasterVolume(float newVolume)
+    {
+        AudioM.Instance.UpdateMasterVolume(newVolume);
+    }
+    public void UpdateSFXVolume(float newVolume)
+    {
+        AudioM.Instance.UpdateSFXVolume(newVolume);
+    }
+    public void UpdateVoiceVolume(float newVolume)
+    {
+        AudioM.Instance.UpdateVoiceVolume(newVolume);
+    }
+
+    public void UpdateMusicVolume(float newVolume)
+    {
+        AudioM.Instance.UpdateMusicVolume(newVolume);
+    }
+
+    public void SetVolumeSliders()
+    {
+        masterSlider.value = AudioM.Instance.MasterVolume;
+        sfxSlider.value = AudioM.Instance.SFXVolume;
+        musicSlider.value = AudioM.Instance.MusicVolume;
+        voiceSlider.value = AudioM.Instance.VoiceVolume;
+    }
 }

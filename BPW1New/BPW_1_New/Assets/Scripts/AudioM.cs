@@ -8,9 +8,14 @@ public class AudioM : MonoBehaviour
     public AudioSource lazorR;
     public AudioSource music;
 
+    public AudioSource[] voiceLines;
+
+    public GameObject settingsPanel;
+
     public float MasterVolume { get; private set; }
     public float SFXVolume { get; private set; }
     public float MusicVolume { get; private set; }
+    public float VoiceVolume { get; private set; }
 
     public static AudioM Instance { get; private set; }
     void Awake()
@@ -54,6 +59,15 @@ public class AudioM : MonoBehaviour
         {
             UpdateMusicVolume(0.5f);
         }
+
+        if (PlayerPrefs.HasKey("VoiceVolume"))
+        {
+            UpdateVoiceVolume(PlayerPrefs.GetFloat("VoiceVolume"));
+        }
+        else
+        {
+            UpdateVoiceVolume(0.5f);
+        }
         #endregion
     }
 
@@ -61,6 +75,17 @@ public class AudioM : MonoBehaviour
     {
         lazorL.Play();
         lazorR.Play();
+    }
+
+    public void PlayVoiceLine(int i)
+    {
+        if (voiceLines[i].isPlaying) { return; }
+        voiceLines[i].Play();
+    }
+
+    public bool IsLinePlaying(int i)
+    {
+        return voiceLines[i].isPlaying;
     }
 
     public void UpdateMasterVolume(float newVolume)
@@ -76,6 +101,15 @@ public class AudioM : MonoBehaviour
         lazorR.volume = newVolume;
         PlayerPrefs.SetFloat("SFXVolume", newVolume);
         SFXVolume = newVolume;
+    }
+    public void UpdateVoiceVolume(float newVolume)
+    {
+        foreach(AudioSource a in voiceLines)
+        {
+            a.volume = newVolume;
+        }
+        PlayerPrefs.SetFloat("VoiceVolume", newVolume);
+        VoiceVolume = newVolume;
     }
 
     public void UpdateMusicVolume(float newVolume)

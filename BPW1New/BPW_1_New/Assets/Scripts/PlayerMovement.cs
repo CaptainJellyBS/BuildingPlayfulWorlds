@@ -185,7 +185,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 startPos = transform.position;
         Vector3 endPos = new Vector3(startPos.x, 15, startPos.z);
         
-        float risingTime = 6.0f;
+        float risingTime = 3.0f;
         while(t<1.0f)
         {
             transform.position = Vector3.Lerp(startPos, endPos, t);
@@ -221,11 +221,21 @@ public class PlayerMovement : MonoBehaviour
     }
     public IEnumerator TutorialShoot()
     {
-        float startY = transform.position.y;
         bool done = false;
         while (!done)
         {
             done = Input.GetMouseButton(0);
+            yield return null;
+        }
+        yield return new WaitForSeconds(2.0f);
+    }
+
+    public IEnumerator TutorialDodge()
+    {
+        bool done = false;
+        while (!done)
+        {
+            done = Input.GetMouseButton(1);
             yield return null;
         }
         yield return new WaitForSeconds(2.0f);
