@@ -194,7 +194,7 @@ public class GameManager : MonoBehaviour
     {
         HighscoreManager.Instance.AddScore(MiscPersistentData.Instance.currentLevel, MiscPersistentData.Instance.playerName, score);
         HighscoreManager.Instance.SaveHighscores();
-
+        Time.timeScale = 0.0f;
         deathPanel.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -211,19 +211,19 @@ public class GameManager : MonoBehaviour
         {
             MiscPersistentData.Instance.currentLevel = DifficultyLevel.Lieutenant;
         }
-
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void ToMenu()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene(0);
     }
 
 
     public void TogglePause()
     {
-        Debug.Log("HELLO");
         if (!paused)
         {
             Cursor.visible = true;
