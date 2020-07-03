@@ -214,6 +214,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 596710806}
+        m_MethodName: PlayLaserSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &32628364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,6 +398,17 @@ MonoBehaviour:
       - m_Target: {fileID: 1823601282}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 596710806}
+        m_MethodName: PlayLaserSound
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -901,6 +923,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 596710806}
+        m_MethodName: PlayLaserSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &219380640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1033,6 +1066,17 @@ MonoBehaviour:
       - m_Target: {fileID: 1823601282}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 596710806}
+        m_MethodName: PlayLaserSound
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1975,7 +2019,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1660713157}
+      - m_Target: {fileID: 596710806}
         m_MethodName: PlayLaserSound
         m_Mode: 1
         m_Arguments:
@@ -2632,7 +2676,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1660713157}
+      - m_Target: {fileID: 596710806}
         m_MethodName: PlayLaserSound
         m_Mode: 1
         m_Arguments:
@@ -3228,6 +3272,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 596710806}
+        m_MethodName: PlayLaserSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &687128216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3557,6 +3612,17 @@ MonoBehaviour:
       - m_Target: {fileID: 596710806}
         m_MethodName: StartGame
         m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 596710806}
+        m_MethodName: PlayLaserSound
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5175,7 +5241,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1660713157}
+      - m_Target: {fileID: 596710806}
         m_MethodName: PlayLaserSound
         m_Mode: 1
         m_Arguments:
@@ -5553,9 +5619,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '
-
-'
+  m_Text: 'Game design, programming, lack of art: Mana Kouwenberg'
 --- !u!222 &1381066794
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5632,14 +5696,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Music:
-
-    Rhinoceros by Kevin MacLeod
-
-    Link: https://incompetech.filmmusic.io/song/4284-rhinoceros
-
-    License:
-    http://creativecommons.org/licenses/by/4.0/'
+  m_Text: "Music:\nRhinoceros by Kevin MacLeod\nLink: https://incompetech.filmmusic.io/song/4284-rhinoceros\nLicense:
+    http://creativecommons.org/licenses/by/4.0/\n\nLaser sound:\nhttps://freesound.org/people/bubaproducer/sounds/151022/
+    \nThe pitch of this sound was changed, otherwise used as is.\n\nText to speech:
+    https://ttsmp3.com/"
 --- !u!222 &1384459641
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6473,6 +6533,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 596710806}
+        m_MethodName: PlayLaserSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1621791200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6509,18 +6580,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1621791197}
   m_CullTransparentMesh: 0
---- !u!114 &1660713157 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7496380833350482836, guid: a93a71b65083fab4ea91990c3cf83885,
-    type: 3}
-  m_PrefabInstance: {fileID: 205082686}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7579bb2f08b634c4c8d7fc36c92fcf78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1660713159 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7496380833350482834, guid: a93a71b65083fab4ea91990c3cf83885,
@@ -7339,6 +7398,17 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 596710806}
+        m_MethodName: PlayLaserSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -8421,6 +8491,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 596710806}
+        m_MethodName: PlayLaserSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2041216763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8541,6 +8622,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 596710806}
         m_MethodName: ClearSave
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 596710806}
+        m_MethodName: PlayLaserSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8690,7 +8782,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1660713157}
+      - m_Target: {fileID: 596710806}
         m_MethodName: PlayLaserSound
         m_Mode: 1
         m_Arguments:

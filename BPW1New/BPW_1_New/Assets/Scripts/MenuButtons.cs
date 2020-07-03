@@ -135,4 +135,9 @@ public class MenuButtons : MonoBehaviour
     {
         AudioM.Instance.UpdateMusicVolume(newVolume);
     }
+
+    public void PlayLaserSound()
+    {
+        AudioM.Instance.PlayLaserSound();
+    }
 }
